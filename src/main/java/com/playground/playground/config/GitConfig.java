@@ -1,21 +1,14 @@
-package mke.ecom.mbt.theone;
+package com.playground.playground.config;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
 
-@SpringBootApplication
-public class MaybankXTheOneApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(MaybankXTheOneApplication.class, args);
-    }
-
+@Configuration
+public class GitConfig {
     @Bean
-    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+    public static PropertySourcesPlaceholderConfigurer placeholderConfig() {
         PropertySourcesPlaceholderConfigurer propsConfig
                 = new PropertySourcesPlaceholderConfigurer();
         propsConfig.setLocation(new ClassPathResource("git.properties"));
