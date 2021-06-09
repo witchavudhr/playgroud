@@ -17,10 +17,10 @@ public class DiskSpace {
             return true;
         } else {
             if (occupiedSectors.parallelStream().min(Integer::compareTo).orElseThrow(IllegalArgumentException::new) > fileSize) {
-                // first occupied is greater than file size
+                // minimum occupied is greater than file size
                 return true;
             } else if (blockSize - occupiedSectors.parallelStream().max(Integer::compareTo).orElseThrow(IllegalArgumentException::new) >= fileSize) {
-                // last occupied is less than file size
+                // maximum occupied is less than file size
                 return true;
             } else {
                 // find available slot enough for file size
