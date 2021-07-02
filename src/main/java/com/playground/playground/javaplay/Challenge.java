@@ -1,5 +1,8 @@
 package com.playground.playground.javaplay;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,9 +25,9 @@ public class Challenge {
         //check existing menu
         String menu = orders.stream()
                 .findFirst()
-                .map(String::toLowerCase)
-                .filter(ingredients::containsKey)
-                .orElseThrow(IllegalArgumentException::new);
+                .map(s -> s.toLowerCase())
+                .filter(key -> ingredients.containsKey(key))
+                .orElseThrow(() -> new IllegalArgumentException());
 
         Set<String> menuIngredients = new HashSet<>(ingredients.get(menu));
 
@@ -34,7 +37,7 @@ public class Challenge {
             orders.stream()
                     .skip(1)
                     .forEach(orderIngredient -> {
-                        if (orderIngredient.startsWith("-") || !orderIngredient.isEmpty()) {
+                        if (orderIngredient.startsWith("-")) {
                             // remove ingredient if existing
                             menuIngredients.remove(orderIngredient.substring(1));
                             // remove all ingredients should throw error
@@ -63,25 +66,5 @@ public class Challenge {
         ingredients.put("just desserts", new HashSet<>(Arrays.asList("banana", "ice cream", "chocolate", "peanut", "cherry")));
 
     }
-
-    public HashSet<Integer> uniqNumber() {
-        List<Integer> initialData = Arrays.asList(1,1,1,1,1,1,2,2,2,2,2);
-
-        return new HashSet<>(initialData);
-    }
-
-    public List<Integer> streamPlay() {
-
-        Set<Integer> test = new HashSet<>(Arrays.asList(1, 10, 5 , 8, 2));
-
-        Integer max = test.stream().max(Integer::compareTo).get();
-        Integer min = test.stream().min(Integer::compareTo).get();
-
-        List<Integer> result = test.stream().sorted().collect(Collectors.toList());
-
-        return result;
-    }
-
-
 
 }

@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -21,9 +23,7 @@ class ChallengeTest {
 
     @Test
     public void testChallengeOnlyMenu() {
-        assertEquals("banana,honey,mango,peach,pineapple,strawberry", challenge.ingredients("Classic,choco"));
         assertEquals("banana,honey,mango,peach,pineapple,strawberry", challenge.ingredients("Classic,"));
-//        assertEquals("banana,honey,mango,peach,pineapple,strawberry", Challenge.ingredients("Classic"));
     }
 
     @Test
@@ -37,18 +37,23 @@ class ChallengeTest {
 
     @Test
     public void test4() {
-        assertEquals(new HashSet<>(Arrays.asList(1, 2)), challenge.uniqNumber());
+        assertThrows(IllegalArgumentException.class, () -> challenge.ingredients("Classic,ice"));
     }
 
     @Test
     public void test5() {
-        assertEquals(Arrays.asList(1, 2, 5, 8, 10), challenge.streamPlay());
+        assertThrows(IllegalArgumentException.class, () -> challenge.ingredients("test,ice"));
     }
-
 
     @Test
     public void test3() {
-//        assertEquals("banana,honey,mango,peach,pineapple", Challenge.ingredients("Classic,-strawberry,-peanut,-banana,-honey,-mango,-peach"));
+        assertEquals("pineapple", challenge.ingredients("Classic,-strawberry,-peanut,-banana,-honey,-mango,-peach"));
         assertThrows(IllegalArgumentException.class, () -> challenge.ingredients("Classic,-strawberry,-banana,-honey,-mango,-peach,-pineapple"));
+    }
+
+    @Test
+    public void test9(){
+        Optional<String> opt = Optional.ofNullable(null);
+        assertFalse(opt.isPresent());
     }
 }
